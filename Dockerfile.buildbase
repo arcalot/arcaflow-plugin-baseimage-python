@@ -1,10 +1,10 @@
-FROM osbase-test
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase
 
 # Setup poetry
-RUN python3.9 -m pip install poetry==1.4.2
-RUN python3.9 -m poetry config virtualenvs.create false
+RUN python3.9 -m pip install poetry==1.4.2 \
+ && python3.9 -m poetry config virtualenvs.create false
 
 
 # Setup coverage
-RUN python3.9 -m pip install coverage==7.2.7
-RUN mkdir /htmlcov
+RUN python3.9 -m pip install coverage==7.2.7 \
+ && mkdir /htmlcov
