@@ -1,0 +1,28 @@
+name: Arcaflow CI Workflow
+on:
+  push:
+    branches:
+      - "**"
+  release:
+    types:
+      - published
+jobs:
+  act-osbase:
+    uses: arcalot/arcaflow-container-toolkit/.github/workflows/reusable_workflow.yaml@main
+    with:
+      image_name: arcaflow-plugin-baseimage-python-osbase
+      image_tag: 'latest'
+    secrets:
+      QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+  act-buildbase:
+    needs: act-osbase
+    uses: arcalot/arcaflow-container-toolkit/.github/workflows/reusable_workflow.yaml@main
+    with:
+      image_name: arcaflow-plugin-baseimage-python-buildbase
+      image_tag: 'latest'
+    secrets:
+      QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
