@@ -38,7 +38,7 @@ jobs:
           file: Dockerfile.osbase
           platforms: linux/amd64
           push: true
-          tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-osbase
+          tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-osbase:${{ env.IMAGE_TAG }}
   buildbase:
     name: Create Build Base Image
     needs: osbase
