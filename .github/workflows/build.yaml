@@ -2,10 +2,14 @@ name: Base Image CI Workflow
 on:
   push:
     branches:
-      - "**"
+      - main
   release:
     types:
       - published
+
+env:
+  IMAGE_TAG: latest
+
 jobs:
   osbase:
     name: Create OS Base Image
@@ -36,6 +40,10 @@ jobs:
     needs: osbase
     runs-on: ubuntu-latest
     steps:
+      - name: Set image tag for release
+        if: github.event_name == 'release'
+        run: |
+          echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up QEMU
@@ -55,4 +63,4 @@ jobs:
           file: Dockerfile.buildbase
           platforms: linux/amd64
           push: true
-          tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase
+          tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase:${{ env.IMAGE_TAG }}
