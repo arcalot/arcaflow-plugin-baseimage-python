@@ -1,5 +1,5 @@
 FROM quay.io/centos/centos:stream8
 RUN dnf -y module install python39 && dnf -y install python39 python39-pip \
- && alternatives --install /usr/bin/python python /usr/bin/python3.9 1
+ && ln -s /usr/bin/python3.9 /usr/bin/python
 
 WORKDIR /app
