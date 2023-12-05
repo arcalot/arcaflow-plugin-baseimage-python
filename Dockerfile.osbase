@@ -1,4 +1,4 @@
-FROM quay.io/centos/centos:stream9
+FROM quay.io/centos/centos:stream9@sha256:f72d75a4553b7d4523efa745b7b97961f347f5f1e20e53709e2f8db313c44f7f
 RUN dnf -y install python3-pip rust cargo && ln -s /usr/bin/python3.9 /usr/bin/python
 
 WORKDIR /app
