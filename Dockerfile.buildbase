@@ -1,5 +1,5 @@
 FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:stream9
-RUN dnf -y install gcc-c++ python3-devel openssl-devel rust-futures-devel
+RUN dnf -y install gcc-c++ python3-devel openssl-devel cargo
 
 # Setup rust dependencies
 RUN cargo init \
