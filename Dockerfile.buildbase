@@ -1,8 +1,8 @@
 FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:stream9
-RUN dnf -y install gcc-c++ python3-devel openssl-devel
+RUN dnf -y install gcc-c++ python3-devel openssl-devel rust-futures-devel
 
 # Setup poetry
-RUN python3.9 -m pip install poetry \
+RUN python3.9 -m pip install poetry==1.4.2 \
  && python3.9 -m poetry config virtualenvs.create false
 
 
