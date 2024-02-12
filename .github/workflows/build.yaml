@@ -26,7 +26,7 @@ jobs:
       - name: Set image tag for stream9
         if: github.ref == 'refs/heads/stream9'
         run: |
-          echo "IMAGE_TAG=stream9"
+          echo "IMAGE_TAG=stream9" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
