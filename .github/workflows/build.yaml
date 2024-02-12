@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.osbase
-          platforms: linux/amd64,linux/arm64, linux/s390x, linux/ppc64le
+          platforms: linux/amd64, linux/arm64, linux/s390x, linux/ppc64le
           push: true
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-osbase:${{ env.IMAGE_TAG }}
   buildbase:
@@ -77,6 +77,6 @@ jobs:
         with:
           context: .
           file: Dockerfile.buildbase
-          platforms: linux/amd64,linux/arm64, linux/s390x, linux/ppc64le
+          platforms: linux/amd64, linux/arm64, linux/s390x, linux/ppc64le
           push: true
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase:${{ env.IMAGE_TAG }}
