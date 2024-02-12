@@ -77,7 +77,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.buildbase
-          # platforms: linux/amd64, linux/arm64, linux/s390x, linux/ppc64le
-          platforms: linux/s390x
+          platforms: linux/amd64, linux/arm64, linux/ppc64le
+          # platforms: linux/s390x has build failures because of a rust syntax problem
           push: true
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase:${{ env.IMAGE_TAG }}
