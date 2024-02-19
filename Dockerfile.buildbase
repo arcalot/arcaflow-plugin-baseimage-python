@@ -1,4 +1,4 @@
-FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase@sha256:f6989789a14057f949bbd3628f173d35e25abd01f73c34e53bf0d53e79ca78fe
 
 # Setup poetry
 RUN python3.9 -m pip install poetry==1.4.2 \
