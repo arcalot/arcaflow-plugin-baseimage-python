@@ -1,9 +1,7 @@
-FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:stream9
-RUN dnf -y install gcc-c++ python3-devel openssl-devel
+ARG image_tag
 
-# # Setup rust dependencies
-# RUN cargo init \
-#  && cargo add futures
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
+RUN dnf -y install gcc-c++ python3-devel openssl-devel
 
 # Setup poetry
 RUN python3.9 -m pip install poetry==1.4.2 \
