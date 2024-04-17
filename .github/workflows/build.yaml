@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - stream9
   release:
     types:
       - published
@@ -15,10 +16,17 @@ jobs:
     name: Create OS Base Image
     runs-on: ubuntu-latest
     steps:
+      - name: Extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
       - name: Set image tag for release
         if: github.event_name == 'release'
         run: |
           echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set image tag for stream9
+        if: github.ref == 'refs/heads/stream9'
+        run: |
+          echo "IMAGE_TAG=stream9" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
@@ -36,7 +44,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.osbase
-          platforms: linux/amd64,linux/arm64, linux/s390x, linux/ppc64le
+          platforms: linux/amd64, linux/arm64, linux/s390x, linux/ppc64le
           push: true
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-osbase:${{ env.IMAGE_TAG }}
   buildbase:
@@ -48,6 +56,10 @@ jobs:
         if: github.event_name == 'release'
         run: |
           echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set image tag for stream9
+        if: github.ref == 'refs/heads/stream9'
+        run: |
+          echo "IMAGE_TAG=stream9" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
@@ -65,6 +77,8 @@ jobs:
         with:
           context: .
           file: Dockerfile.buildbase
-          platforms: linux/amd64,linux/arm64, linux/s390x, linux/ppc64le
+          platforms: linux/amd64, linux/arm64, linux/ppc64le
+          # platforms: linux/s390x has build failures because of a rust syntax problem
+          build-args: image_tag=${{ env.IMAGE_TAG }}
           push: true
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase:${{ env.IMAGE_TAG }}
