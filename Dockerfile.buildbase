@@ -7,6 +7,9 @@ RUN dnf -y install gcc-c++ python3-devel openssl-devel
 RUN python3.9 -m pip install poetry==1.4.2 \
  && python3.9 -m poetry config virtualenvs.create false
 
+# Poetry 1.4.2 requires requests = "^2.18"
+# We need requests = "^2.32.0" to fix cve-2024-35195
+RUN python3.9 -m pip install requests="^2.32.0"
 
 # Setup coverage
 RUN python3.9 -m pip install coverage==7.2.7 \
