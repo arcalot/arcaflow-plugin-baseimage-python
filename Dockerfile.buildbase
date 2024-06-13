@@ -4,10 +4,7 @@ FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
 RUN dnf -y install gcc-c++ python3-devel openssl-devel
 
 # Setup poetry
-# Poetry 1.4.2 requires requests = "^2.18"
-# We need requests = "^2.32.0" to fix cve-2024-35195
-RUN python3.9 -m pip install poetry==1.4.2 \
- && python3.9 -m pip install requests>=2.32.0 \
+RUN python3.9 -m pip install --constraint constraints.txt poetry==1.4.2 \
  && python3.9 -m poetry config virtualenvs.create false
 
 # Setup coverage
