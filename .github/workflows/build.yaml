@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - stream9
   release:
     types:
       - published
@@ -23,10 +22,6 @@ jobs:
         if: github.event_name == 'release'
         run: |
           echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Set image tag for stream9
-        if: github.ref == 'refs/heads/stream9'
-        run: |
-          echo "IMAGE_TAG=stream9" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
@@ -56,10 +51,6 @@ jobs:
         if: github.event_name == 'release'
         run: |
           echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Set image tag for stream9
-        if: github.ref == 'refs/heads/stream9'
-        run: |
-          echo "IMAGE_TAG=stream9" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
