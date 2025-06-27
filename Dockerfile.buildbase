@@ -13,3 +13,4 @@ RUN python3.9 -m pip install --constraint constraints.txt poetry==1.8.3 \
 # Setup coverage
 RUN python3.9 -m pip install coverage==7.2.7 \
  && mkdir /htmlcov
+
