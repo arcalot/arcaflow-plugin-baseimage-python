@@ -1,7 +1,6 @@
 ARG image_tag
 
-#FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
-FROM baseimage-test
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
 RUN dnf -y install gcc-c++ python3.12-devel openssl-devel \
  && dnf clean all
 
