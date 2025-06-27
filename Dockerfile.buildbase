@@ -1,16 +1,17 @@
 ARG image_tag
 
-FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
-RUN dnf -y install gcc-c++ python3-devel openssl-devel \
+#FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
+FROM baseimage-test
+RUN dnf -y install gcc-c++ python3.12-devel openssl-devel \
  && dnf clean all
 
 COPY constraints.txt constraints.txt
 
 # Setup poetry
-RUN python3.9 -m pip install --constraint constraints.txt poetry==1.8.3 \
- && python3.9 -m poetry config virtualenvs.create false
+RUN python3 -m pip install --constraint constraints.txt poetry==1.8.3 \
+ && python3 -m poetry config virtualenvs.create false
 
 # Setup coverage
-RUN python3.9 -m pip install coverage==7.2.7 \
+RUN python3 -m pip install coverage==7.2.7 \
  && mkdir /htmlcov
 
