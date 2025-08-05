@@ -7,7 +7,9 @@ RUN dnf -y install gcc-c++ python3.12-devel openssl-devel \
 COPY constraints.txt constraints.txt
 
 # Setup poetry
-RUN python3 -m pip install --constraint constraints.txt poetry==1.8.3 \
+RUN python3 -m pip install --constraint constraints.txt \
+    poetry==1.8.3 \
+    poetry-plugin-export==1.8.0 \
  && python3 -m poetry config virtualenvs.create false
 
 # Setup coverage
