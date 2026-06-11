@@ -72,6 +72,8 @@ jobs:
           context: .
           file: Dockerfile.buildbase
           platforms: linux/amd64, linux/arm64
-          build-args: image_tag=${{ env.IMAGE_TAG }}
+          build-args: |
+            image_tag=${{ env.IMAGE_TAG }}
+            poetry_version=${{ vars.ARCALOT_POETRY_VERSION }}
           push: ${{ github.event_name == 'release' || github.ref == 'refs/heads/main' }}
           tags: quay.io/${{ secrets.QUAY_NAMESPACE }}/arcaflow-plugin-baseimage-python-buildbase:${{ env.IMAGE_TAG }}
