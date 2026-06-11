@@ -1,13 +1,15 @@
 ARG image_tag
 
 FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:$image_tag
+ARG poetry_version
 RUN dnf -y install gcc-c++ python3.12-devel openssl-devel \
  && dnf clean all
 
 COPY constraints.txt constraints.txt
 
 # Setup poetry
-RUN python3 -m pip install --constraint constraints.txt poetry==1.8.3 \
+RUN python3 -m pip install --constraint constraints.txt \
+    poetry==${poetry_version} \
  && python3 -m poetry config virtualenvs.create false
 
 # Setup coverage
